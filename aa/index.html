@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable - Lowry Bunks✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --background-color: #000000;
+            --text-color: #ffffff;
+            --table-header-bg: rgba(0, 123, 255, 0.2);
+            --table-border: rgba(0, 123, 255, 0.2);
+            --table-hover: rgba(0, 123, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .timetable-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(0, 123, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .timetable-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timetable-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .timetable th, .timetable td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--table-border);
+        }
+
+        .timetable th {
+            background: var(--table-header-bg);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timetable tr:hover {
+            background: var(--table-hover);
+        }
+
+        .timetable td {
+            font-size: 0.95rem;
+        }
+
+        .period-time {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .lunch-break {
+            background: rgba(0, 123, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 1rem;
+            background: rgba(0, 123, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 123, 255, 0.1);
+            text-align: center;
+            color: #888;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .mobile-warning {
+            display: none;
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem auto;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .mobile-warning i {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mobile-warning p {
+            color: #ffc107;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning {
+                display: block;
+            }
+
+            .timetable-container {
+                padding: 1rem 0;
+                margin: 1rem 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .timetable {
+                min-width: 800px; /* Ensure table maintains minimum width */
+            }
+
+            .timetable-header {
+                padding: 0 1rem;
+            }
+
+            .timetable-container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .timetable {
+                font-size: 0.9rem;
+            }
+
+            .timetable th, .timetable td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .period-time {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timetable-container {
+                padding: 0.5rem;
+                margin: 0.5rem;
+            }
+
+            .timetable {
+                font-size: 0.8rem;
+            }
+
+            .timetable th, .timetable td {
+                padding: 0.5rem 0.25rem;
+            }
+
+            .timetable-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            Lowry Bunks<span style="color: var(--primary-color);">✨</span>
+        </a>
+    </nav>
+
+    <div class="mobile-warning">
+        <i>⚠️</i>
+        <p>For the best experience, please view the timetable in landscape mode or on a larger screen.</p>
+    </div>
+
+    <div class="timetable-container">
+        <div class="timetable-header">
+            <h1>Class Timetable</h1>
+            <p>IBCA - Academic Year 2025</p>
+        </div>
+
+        <table class="timetable">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>
+                        I<br>
+                        <span class="period-time">9:00-9:55</span>
+                    </th>
+                    <th>
+                        II<br>
+                        <span class="period-time">9:55-10:50</span>
+                    </th>
+                    <th>
+                        III<br>
+                        <span class="period-time">11:05-12:00</span>
+                    </th>
+                    <th>
+                        IV<br>
+                        <span class="period-time">12:00-12:55</span>
+                    </th>
+                    <th class="lunch-break">
+                        LUNCH<br>
+                        <span class="period-time">12:55-1:40</span>
+                    </th>
+                    <th>
+                        V<br>
+                        <span class="period-time">1:40-2:35</span>
+                    </th>
+                    <th>
+                        VI<br>
+                        <span class="period-time">2:35-3:30</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MON</td>
+                    <td>DS</td>
+                    <td>LANG</td>
+                    <td>R/DS LAB</td>
+                    <td></td>
+                    <td class="lunch-break">LUNCH</td>
+                    <td>OS</td>
+                    <td>ENG</td>
+                </tr>
+                <tr>
+                    <td>TUE</td>
+                    <td>DS</td>
+                    <td>LANG</td>
+                    <td>OS</td>
+                    <td>R</td>
+                    <td class="lunch-break">LUNCH</td>
+                    <td>CMV</td>
+                    <td>ENG</td>
+                </tr>
+                <tr>
+                    <td>WED</td>
+                    <td>DS</td>
+                    <td>LANG</td>
+                    <td>OS</td>
+                    <td>ENG</td>
+                    <td class="lunch-break">LUNCH</td>
+                    <td>R</td>
+                    <td>CMV</td>
+                </tr>
+                <tr>
+                    <td>THU</td>
+                    <td colspan="2">R/DS LAB</td>
+                    <td>DS</td>
+                    <td>OS</td>
+                    <td class="lunch-break">LUNCH</td>
+                    <td>R</td>
+                    <td>ENG</td>
+                </tr>
+                <tr>
+                    <td>FRI</td>
+                    <td colspan="2">R/DS LAB</td>
+                    <td>OS</td>
+                    <td>CHAP</td>
+                    <td class="lunch-break">LUNCH</td>
+                    <td>R</td>
+                    <td>CMV</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="developer-credit">
+                Developed with ❤️ by <a href="#">Rahul</a>
+            </div>
+            <div class="footer-links">
+                <a href="timetable.html" class="footer-link">Timetable</a>
+                <br>
+                <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                <br>
+                <a href="#terms" class="footer-link">Terms of Use</a>
+                <br>
+                <a href="#contact" class="footer-link">Contact</a>
+            </div>
+        </div>
+    </footer>
+</main>
+
+</body>
+</html>
