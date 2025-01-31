@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Lowry Bunks✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --background-color: #000000;
+            --text-color: #ffffff;
+            --card-bg: rgba(0, 123, 255, 0.05);
+            --card-border: rgba(0, 123, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subscribe-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .subscribe-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .subscribe-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .subscribe-form button {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            opacity: 0.9;
+        }
+
+        .notifications {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .notification-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .notification-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .notification-meta {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .notification-content {
+            margin-bottom: 1rem;
+        }
+
+        .notification-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.9rem;
+        }
+
+        .notification-author {
+            color: #888;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--background-color);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 4rem auto;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--text-color);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-meta {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            Lowry Bunks<span style="color: var(--primary-color);">✨</span>
+        </a>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Notifications</h1>
+            <p>Stay updated with the latest announcements</p>
+        </div>
+
+        <div class="subscribe-section">
+            <h2>Get Instant Updates</h2>
+            <p>Subscribe to receive notifications directly in your inbox</p>
+            <form class="subscribe-form" id="subscribeForm">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+
+        <div class="notifications">
+            <div class="notification-card" onclick="openModal('notification1')">
+                <div class="notification-header">
+                    <div class="notification-title">Important: Class Schedule Change</div>
+                    <div class="notification-meta">2 hours ago</div>
+                </div>
+                <div class="notification-content">
+                    DS Lab timing has been changed for this week. Please check the updated schedule.
+                </div>
+                <div class="notification-footer">
+                    <div class="notification-author">Posted by Prof. Sarah Johnson</div>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="notification-card" onclick="openModal('notification2')">
+                <div class="notification-header">
+                    <div class="notification-title">Assignment Submission Deadline</div>
+                    <div class="notification-meta">1 day ago</div>
+                </div>
+                <div class="notification-content">
+                    OS Assignment #3 submission deadline has been extended to next week.
+                </div>
+                <div class="notification-footer">
+                    <div class="notification-author">Posted by Prof. Michael Chen</div>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+
+            <div class="notification-card" onclick="openModal('notification3')">
+                <div class="notification-header">
+                    <div class="notification-title">Guest Lecture Announcement</div>
+                    <div class="notification-meta">2 days ago</div>
+                </div>
+                <div class="notification-content">
+                    Special guest lecture on Advanced Data Structures scheduled for next week.
+                </div>
+                <div class="notification-footer">
+                    <div class="notification-author">Posted by Dr. Robert Wilson</div>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-meta" id="modalMeta"></div>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <a href="https://lowrybunks.netlify.app/" target="_blank">https://lowrybunks.netlify.app/</a>
+    </footer>
+
+    <script>
+        // Subscribe Form Handler
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Subscription successful! You'll receive notifications at ${email}`);
+            this.reset();
+        });
+
+        // Modal Handlers
+        const notifications = {
+            notification1: {
+                title: "Important: Class Schedule Change",
+                meta: "Posted by Prof. Sarah Johnson • 2 hours ago",
+                content: `DS Lab timing has been changed for this week due to maintenance work in the main lab.
+                
+                New Schedule:
+                - Date: February 3rd, 2025
+                - Time: 2:00 PM - 4:00 PM
+                - Venue: Computer Lab 2
+                
+                Please make sure to arrive on time and bring your lab materials. The regular schedule will resume from next week.
+                
+                For any queries, please contact the department office.`
+            },
+            notification2: {
+                title: "Assignment Submission Deadline",
+                meta: "Posted by Prof. Michael Chen • 1 day ago",
+                content: `The deadline for OS Assignment #3 has been extended to February 7th, 2025.
+
+                This extension is being provided considering the upcoming guest lecture and lab practical sessions. Please use this time to ensure your submissions are complete and well-documented.
+                
+                Submission Guidelines:
+                - Format: PDF
+                - Naming Convention: Roll_Number_OS_A3
+                - Submit via the course portal
+                
+                Late submissions will not be accepted after the extended deadline.`
+            },
+            notification3: {
+                title: "Guest Lecture Announcement",
+                meta: "Posted by Dr. Robert Wilson • 2 days ago",
+                content: `We are pleased to announce a special guest lecture on Advanced Data Structures by Dr. Emily Zhang from Stanford University.
+
+                Topic: "Modern Applications of Advanced Data Structures in Machine Learning"
+                Date: February 5th, 2025
+                Time: 10:00 AM - 12:00 PM
+                Venue: Main Auditorium
+                
+                This is a mandatory session for all students. Attendance will be marked.
+                
+                Please prepare relevant questions as there will be a Q&A session after the lecture.`
+            }
+        };
+
+        function openModal(id) {
+            const modal = document.getElementById('notificationModal');
+            const notification = notifications[id];
+            
+            document.getElementById('modalTitle').textContent = notification.title;
+            document.getElementById('modalMeta').textContent = notification.meta;
+            document.getElementById('modalBody').textContent = notification.content;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('notificationModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('notificationModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

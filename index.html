@@ -1,1 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lowry Bunks✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+        :root {
+            --primary-color: #007bff;
+            --background-color: #000000;
+            --text-color: #ffffff;
+            --gradient-1: linear-gradient(45deg, #007bff, #00c6ff);
+            --gradient-2: linear-gradient(45deg, #0051ff, #007bff);
+            --glow-color: rgba(0, 123, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 123, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 123, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-button.primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px var(--glow-color);
+        }
+
+        .nav-button.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glow-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 20px var(--glow-color);
+            transform: scale(1.02);
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-button:hover {
+            transform: rotate(90deg);
+        }
+
+        .welcome-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            position: relative;
+            text-align: center;
+        }
+
+        .welcome-title .line {
+            display: block;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .welcome-title .line:nth-child(2) {
+            animation-delay: 0.2s;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin: 0.2rem 0;
+        }
+
+        .welcome-title .line:nth-child(3) {
+            animation-delay: 0.4s;
+            font-size: 0.8em;
+            background: linear-gradient(45deg, #0051ff, #007bff);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .welcome-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.15; }
+        }
+
+        .welcome-subtitle {
+            font-size: 1.3rem;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideIn 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .features-section {
+            margin: 3rem 0;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .features-title {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            display: inline-block;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-item strong {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section {
+            margin: 4rem 0;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+            animation-delay: 0.9s;
+        }
+
+        .cta-text {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button.primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px var(--glow-color);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--glow-color);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .author-name {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .post-details {
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .developer-credit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .developer-credit a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .developer-credit a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .welcome-section {
+                padding: 2rem 1rem;
+            }
+
+            .welcome-title {
+                font-size: 2.8rem;
+            }
+
+            .welcome-title .line:nth-child(3) {
+                font-size: 0.9em;
+            }
+
+            .welcome-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            .features-section {
+                margin: 2rem 0;
+            }
+
+            .features-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-item {
+                padding: 1.2rem;
+            }
+
+            .cta-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .welcome-title {
+                font-size: 2.2rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+
+            .features-title {
+                font-size: 1.3rem;
+            }
+
+            .feature-item {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .feature-item strong {
+                font-size: 1rem;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .author-info {
+                width: 100%;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+        }
+
+        /* Fix for very small screens */
+        @media (max-width: 360px) {
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+
+            .nav-right {
+                gap: 0.5rem;
+            }
+
+            .menu-button {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="logo">
+                Lowry Bunks<span style="color: var(--primary-color);">✨</span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <!-- <a href="#start" class="nav-button secondary">Get Started</a> -->
+            <a href="#download" class="nav-button primary">Download App</a>
+            <button class="menu-button">☰</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="welcome-section">
+            <h1 class="welcome-title">
+                <span class="line">Smart Attendance</span>
+                <span class="line">Made Simple</span>
+                <span class="line">Track • Calculate • Succeed</span>
+            </h1>
+            
+            <p class="welcome-subtitle">
+                Tired of keeping track of your attendance manually? <strong>Lowry Bunks</strong> makes it effortless! 
+                Our easy-to-use app lets you mark your own attendance, track your progress, and stay on top of your 
+                college attendance requirements.
+            </p>
+
+            <div class="features-section">
+                <h2 class="features-title">🚀 Why Choose Lowry Bunks?</h2>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        ✅ <strong>Self-Attendance Marking</strong> 
+                        <p>Easily mark your attendance anytime, anywhere.</p>
+                    </li>
+                    <li class="feature-item">
+                        ✅ <strong>Real-Time Tracking</strong>
+                        <p>Check your attendance stats in one click.</p>
+                    </li>
+                    <li class="feature-item">
+                        ✅ <strong>Bunk Calculator</strong>
+                        <p>Know how many more classes you can miss without trouble!</p>
+                    </li>
+                    <li class="feature-item">
+                        ✅ <strong>Secure & Private</strong>
+                        <p>Your data is safe with us, no sharing with third parties.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cta-section">
+                <p class="cta-text">
+                    💡 <strong>Stay Ahead, Bunk Smart!</strong><br>
+                    Join thousands of students making attendance stress-free.
+                </p>
+            </div>
+        </section>
+
+        <!-- <article>
+            <div class="post-meta">
+                <div class="author-avatar">R</div>
+                <div class="author-info">
+                    <span class="author-name">Rahul</span>
+                    <div class="post-details">
+                        <span>Developer</span>
+                        <span>2 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </article> -->
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="developer-credit">
+                    Developed with ❤️ by <a href="#">Rahul</a>
+                </div>
+                <div class="footer-links">
+                    <a href="timetable.html" class="footer-link">Timetable</a>
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                    <a href="#terms" class="footer-link">Terms of Use</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <footer class="footer">
+        <a href="https://lowrybunks.netlify.app/" target="_blank">https://lowrybunks.netlify.app/</a>
+    </footer>
+</body>
+</html>
