@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timetable - Lowry Bunks✨</title>
+    <title>Notifications - Lowry Bunks✨</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
             --primary-color: #007bff;
-            --background-color: #000000;
+            --background-color: #0f0f0f;
             --text-color: #ffffff;
-            --table-header-bg: rgba(0, 123, 255, 0.2);
-            --table-border: rgba(0, 123, 255, 0.2);
-            --table-hover: rgba(0, 123, 255, 0.1);
+            --card-bg: #1a1a1a;
+            --card-border: #ff1493;
         }
 
         * {
@@ -57,21 +56,18 @@
             color: var(--primary-color);
         }
 
-        .timetable-container {
-            max-width: 1000px;
+        .container {
+            max-width: 800px;
             margin: 2rem auto;
-            padding: 2rem;
-            background: rgba(0, 123, 255, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 123, 255, 0.1);
+            padding: 0 1rem;
         }
 
-        .timetable-header {
+        .header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .timetable-header h1 {
+        .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             background: linear-gradient(45deg, #007bff, #00c6ff);
@@ -80,140 +76,254 @@
             color: transparent;
         }
 
-        .timetable {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .timetable th, .timetable td {
-            padding: 1rem;
+        .subscribe-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
             text-align: center;
-            border: 1px solid var(--table-border);
         }
 
-        .timetable th {
-            background: var(--table-header-bg);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .timetable tr:hover {
-            background: var(--table-hover);
-        }
-
-        .timetable td {
-            font-size: 0.95rem;
-        }
-
-        .period-time {
+        .subscribe-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--primary-color);
-            font-size: 0.85rem;
-            font-weight: 500;
         }
 
-        .lunch-break {
-            background: rgba(0, 123, 255, 0.1);
-            font-weight: 500;
+        .subscribe-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        .footer {
-            margin-top: 4rem;
-            padding: 2rem 1rem;
-            background: rgba(0, 123, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 123, 255, 0.1);
-            text-align: center;
+        .subscribe-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--card-border);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .subscribe-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .subscribe-form button {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .subscribe-form button:hover {
+            opacity: 0.9;
+        }
+
+        .notifications {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .notification-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .notification-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .notification-meta {
+            font-size: 0.9rem;
             color: #888;
         }
 
-        .footer a {
+        .notification-content {
+            margin-bottom: 1rem;
+        }
+
+        .notification-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.9rem;
+        }
+
+        .notification-author {
+            color: #888;
+        }
+
+        .read-more {
             color: var(--primary-color);
             text-decoration: none;
+            font-weight: 500;
         }
 
-        .mobile-warning {
-            display: none;
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.2);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem auto;
-            text-align: center;
-            max-width: 90%;
+        .read-more:hover {
+            text-decoration: underline;
         }
 
-        .mobile-warning i {
-            color: #ffc107;
-            font-size: 1.5rem;
+        .love-theme {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 15px;
+        }
+
+        .love-theme .notification-title {
+            color: var(--card-border);
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .mobile-warning p {
-            color: #ffc107;
+        .love-theme .notification-meta {
+            color: #888;
             font-size: 0.9rem;
-            margin: 0;
+        }
+
+        .love-theme .notification-content {
+            color: var(--text-color);
+            margin: 1rem 0;
+        }
+
+        .love-theme .notification-author {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .love-theme .read-more {
+            color: var(--card-border);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            margin: 15% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            color: #fff;
+            line-height: 1.6;
+            margin-top: 1rem;
+        }
+
+        .modal-meta {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #0088ff;
+            text-decoration: none;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .developer-credit {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-link {
+            color: #0088ff !important;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
-            .mobile-warning {
-                display: block;
+            .container {
+                margin: 1rem auto;
             }
 
-            .timetable-container {
-                padding: 1rem 0;
-                margin: 1rem 0;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .timetable {
-                min-width: 800px; /* Ensure table maintains minimum width */
-            }
-
-            .timetable-header {
-                padding: 0 1rem;
-            }
-
-            .timetable-container {
-                padding: 1rem;
-                margin: 1rem;
-            }
-
-            .timetable {
-                font-size: 0.9rem;
-            }
-
-            .timetable th, .timetable td {
-                padding: 0.75rem 0.5rem;
-            }
-
-            .period-time {
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .timetable-container {
-                padding: 0.5rem;
-                margin: 0.5rem;
-            }
-
-            .timetable {
-                font-size: 0.8rem;
-            }
-
-            .timetable th, .timetable td {
-                padding: 0.5rem 0.25rem;
-            }
-
-            .timetable-header h1 {
+            .header h1 {
                 font-size: 2rem;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 2rem 1rem;
             }
         }
     </style>
@@ -225,102 +335,61 @@
         </a>
     </nav>
 
-    <div class="mobile-warning">
-        <i>⚠️</i>
-        <p>For the best experience, please view the timetable in landscape mode or on a larger screen.</p>
-    </div>
-
-    <div class="timetable-container">
-        <div class="timetable-header">
-            <h1>Class Timetable</h1>
-            <p>IBCA - Academic Year 2025</p>
+    <div class="container">
+        <div class="header">
+            <h1>Notifications</h1>
+            <p>Stay updated with the latest announcements</p>
+            <p>And Hot Topics in the Class</p>
         </div>
 
-        <table class="timetable">
-            <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>
-                        I<br>
-                        <span class="period-time">9:00-9:55</span>
-                    </th>
-                    <th>
-                        II<br>
-                        <span class="period-time">9:55-10:50</span>
-                    </th>
-                    <th>
-                        III<br>
-                        <span class="period-time">11:05-12:00</span>
-                    </th>
-                    <th>
-                        IV<br>
-                        <span class="period-time">12:00-12:55</span>
-                    </th>
-                    <th class="lunch-break">
-                        LUNCH<br>
-                        <span class="period-time">12:55-1:40</span>
-                    </th>
-                    <th>
-                        V<br>
-                        <span class="period-time">1:40-2:35</span>
-                    </th>
-                    <th>
-                        VI<br>
-                        <span class="period-time">2:35-3:30</span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>MON</td>
-                    <td>DS</td>
-                    <td>LANG</td>
-                    <td>R/DS LAB</td>
-                    <td></td>
-                    <td class="lunch-break">LUNCH</td>
-                    <td>OS</td>
-                    <td>ENG</td>
-                </tr>
-                <tr>
-                    <td>TUE</td>
-                    <td>DS</td>
-                    <td>LANG</td>
-                    <td>OS</td>
-                    <td>R</td>
-                    <td class="lunch-break">LUNCH</td>
-                    <td>CMV</td>
-                    <td>ENG</td>
-                </tr>
-                <tr>
-                    <td>WED</td>
-                    <td>DS</td>
-                    <td>LANG</td>
-                    <td>OS</td>
-                    <td>ENG</td>
-                    <td class="lunch-break">LUNCH</td>
-                    <td>R</td>
-                    <td>CMV</td>
-                </tr>
-                <tr>
-                    <td>THU</td>
-                    <td colspan="2">R/DS LAB</td>
-                    <td>DS</td>
-                    <td>OS</td>
-                    <td class="lunch-break">LUNCH</td>
-                    <td>R</td>
-                    <td>ENG</td>
-                </tr>
-                <tr>
-                    <td>FRI</td>
-                    <td colspan="2">R/DS LAB</td>
-                    <td>OS</td>
-                    <td>CHAP</td>
-                    <td class="lunch-break">LUNCH</td>
-                    <td>R</td>
-                    <td>CMV</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- <div class="subscribe-section">
+            <h2>Get Instant Updates</h2>
+            <p>Subscribe to receive notifications directly in your inbox</p>
+            <form class="subscribe-form" id="subscribeForm">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div> -->
+
+        <div class="notifications">
+            <div class="notification-card" onclick="openModal('notification1')">
+                <div class="notification-header">
+                    <div class="notification-title">🚀 Lowry Bunks is Live! 🎉</div>
+                    <div class="notification-meta">Rahul • 2/2/25</div>
+                </div>
+                <div class="notification-content">
+                    A brand-new app by Rahul and Team to track your attendance effortlessly at Lowry!
+                </div>
+                <div class="notification-footer">
+                    <div class="notification-author">Posted by Rahul</div>
+                    <a href="javascript:void(0)" onclick="openModal('notification1')" class="read-more">Read More →</a>
+                </div>
+            </div>
+            
+            <div class="notification-card love-theme" onclick="openModal('notification2')">
+                <div class="notification-header">
+                    <div class="notification-title">🔍 Sufiyan Wajid Confirms: Single & Searching! 💙</div>
+                    <div class="notification-meta">Posted • 2/2/25</div>
+                </div>
+                <div class="notification-content">
+                    Our very own Sufiyan Wajid has officially declared his single status and is currently on the lookout for a perfect match!
+                </div>
+                <div class="notification-footer">
+                    <div class="notification-author">Matchmaking Committee</div>
+                    <a href="javascript:void(0)" onclick="openModal('notification2')" class="read-more">Spread Love →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-meta" id="modalMeta"></p>
+            <div class="modal-body" id="modalContent"></div>
+        </div>
     </div>
 
     <footer class="footer">
@@ -329,17 +398,67 @@
                 Developed with ❤️ by <a href="#">Rahul</a>
             </div>
             <div class="footer-links">
-                <a href="timetable.html" class="footer-link">Timetable</a>
-                <br>
-                <a href="privacy.html" class="footer-link">Privacy Policy</a>
-                <br>
-                <a href="#terms" class="footer-link">Terms of Use</a>
-                <br>
+                <a href="timetable.html" class="footer-link">Timetable</a> <br>
+                <a href="privacy.html" class="footer-link">Privacy Policy</a> <br>
+                <a href="#terms" class="footer-link">Terms of Use</a> <br>
                 <a href="#contact" class="footer-link">Contact</a>
             </div>
         </div>
     </footer>
-</main>
 
+    <script>
+        // Subscribe Form Handler
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Subscription successful! You'll receive notifications at ${email}`);
+            this.reset();
+        });
+
+        // Modal Handlers
+        const notifications = {
+            notification1: {
+                title: "🚀 Lowry Bunks is Live! 🎉",
+                meta: "Rahul • 2/2/25",
+                content: `A brand-new app by Rahul and Team to track your attendance effortlessly at Lowry! Built under the MIT License, this app is open for all BCA students to use. Stay on top of your attendance and never miss a count again!
+
+Try it now & share your feedback! 📊✅
+
+#LowryBunks #AttendanceMadeEasy #BCA.`,
+            },
+            notification2: {
+                title: "🔍 Sufiyan Wajid Confirms: Single & Searching! 💙",
+                meta: "Posted • 2/2/25",
+                content: `Our very own <strong>Sufiyan Wajid</strong> has officially declared his <span style="color: #ff1493">single status</span> and is currently on the lookout for a <em>perfect match</em>! 💫
+
+Tag your friends, spread the word & who knows? Cupid might just strike! 😉✨
+
+<span style="font-size: 0.9em">#SingleAndSearching #SufiyanWajid #LoveInTheAir</span>`,
+            }
+        };
+
+        function openModal(id) {
+            const modal = document.getElementById('notificationModal');
+            const notification = notifications[id];
+            
+            document.getElementById('modalTitle').textContent = notification.title;
+            document.getElementById('modalMeta').textContent = notification.meta;
+            document.getElementById('modalContent').innerHTML = notification.content;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('notificationModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
